@@ -1,0 +1,6 @@
+<div id="todoInput" class="centered">
+    <input class="centered-block"
+           [disabled]="!('todos_create' | permissions)"
+           #newTodo placeholder="What needs to be done?" autofocus
+           (keyup.enter)="addNewTodo(newTodo.value); newTodo.value=''"/>
+</div>

@@ -1,0 +1,15 @@
+<div class="big-font">
+<div *ngIf="metadata | async as metadataObj">
+  <ng-container *ngIf="metadataObj.all; else noContent">
+    <ul class="ul-todos">
+      <li *ngFor="let filter of todoService.filterOptions">
+        {{filter}} - {{metadataObj[filter | lowercase]}}
+      </li>
+    </ul>
+  </ng-container>
+</div>
+<ng-template #noContent>No tasks to display
+  <br>
+</ng-template>
+<a routerLink='/list'><< Go Back to List</a>
+</div>

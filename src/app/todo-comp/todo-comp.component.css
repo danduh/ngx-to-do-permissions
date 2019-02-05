@@ -1,0 +1,115 @@
+.centered-block {
+  width: 400px;
+  height: 50px;
+  font-size: 20px;
+  margin:auto;
+  position:relative;
+  border: 1px solid;
+  border-color: #b3b3b3;
+    padding: 0px 0px 0px 50px;
+}
+
+.ul-todos {
+  list-style-type: none;
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.li-nopad {
+    padding: 0px;
+    width: 450px;
+    border: 1px solid;
+    border-top: 0px;
+    margin: 0px;
+    border-color: #d9d9d9;
+}
+
+.check {
+  width: 35px;
+  margin: 0px 0px 0px 15px;
+  float: left;
+  height: 50px;
+}
+
+.hide {
+  display:none;
+}
+
+.input-container {
+  //display:block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width:450px;
+}
+label {
+  float:left;
+  height: 50px;
+  line-height: 50px;
+  width: 350px;
+  text-align: left;
+}
+
+.edit {
+  display: block;
+height: 45px;
+left: 35px;
+padding-left: 15px;
+position: absolute;
+width: 397px;
+font-size: 20px;
+font-weight: 200;
+}
+.delete-button {
+  top: 0px;
+  right: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.footer {
+  position: relative;
+  margin: auto;
+  height: 50px;
+  width: 450px;
+    padding-bottom: 20px;
+}
+.counter {
+  float: left;
+    margin-left: 20px;
+}
+button {
+  cursor:pointer;
+}
+
+.clear-completed {
+    border: none;
+}
+
+.ul-filter {
+  list-style-type: none;
+width: fit-content;
+
+margin-left: auto;
+margin-right: auto;
+padding-left: 0px;
+}
+.ul-filter li {
+  float: left;
+margin-left: 5px;
+margin-right: 5px;
+}
+
+h1 {
+    font-weight: 100;
+    font-style: italic;
+    font-size: 50px;
+}
+
+.shadow {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 450px;
+    margin: auto;
+    //padding-bottom: 20px;
+}

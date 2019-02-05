@@ -1,0 +1,104 @@
+.centered-block {
+    width: 400px;
+    height: 50px;
+    padding: 0px 0px 0px 50px;
+    font-size: 20px;
+    margin:auto;
+    position:relative;
+    border-width: 0px 0px 1px 0px;
+    border-color: #b3b3b3;
+}
+::placeholder {
+    color:#d4d4d4;
+}
+
+.ul-todos {
+  list-style-type: none;
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.li-nopad {
+  padding-left: 0px;
+  width:450px;
+  border: 2px solid;
+  border-top: 0px;
+  border-color: #d9d9d9;
+}
+
+.check {
+  width: 35px;
+  margin: 0px 0px 0px 15px;
+  float: left;
+  height: 50px;
+}
+
+.hide {
+  display:none;
+}
+
+.input-container {
+  //display:block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width:450px;
+}
+label {
+  float:left;
+  height: 50px;
+  line-height: 50px;
+  width: 350px;
+  text-align: left;
+}
+
+.edit {
+  display: block;
+height: 45px;
+left: 35px;
+padding-left: 15px;
+position: absolute;
+width: 397px;
+font-size: 20px;
+font-weight: 200;
+    border: none;
+}
+.delete-button {
+  top: 0px;
+  right: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.footer {
+  position: relative;
+  margin: auto;
+  height: 50px;
+  width: 450px;
+}
+.counter {
+  float: left;
+    margin-left: 20px;
+}
+button {
+  cursor:pointer;
+}
+
+.clear-completed {
+    border: none;
+}
+
+.ul-filter {
+  list-style-type: none;
+width: fit-content;
+
+margin-left: auto;
+margin-right: auto;
+padding-left: 0px;
+}
+.ul-filter li {
+  float: left;
+margin-left: 5px;
+margin-right: 5px;
+}

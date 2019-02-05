@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "name": "Task 1",
+      "completed": false,
+      "id": 1
+    },
+    {
+      "name": "Task 2",
+      "completed": true,
+      "id": 2
+    }
+  ]
+}
