@@ -1,4 +1,7 @@
-
+import { select, Store } from '@ngrx/store';
+import { AppInjector } from './permissions.injector';
+import { userPermissionsState } from '../../store';
+import { take } from 'rxjs/operators';
 
 export function checkPermissions(required: string, userPerms) {
     const [feature, action] = required.split('_');
@@ -18,4 +21,18 @@ export function checkPermissions(required: string, userPerms) {
 
     return true;
 
+}
+
+export function getPermissions() {
+    let userPerms;
+    const store: Store<any> = AppInjector.get(Store);
+    store
+        .pipe(
+            select(userPermissionsState),
+            take(1)
+        )
+        .subscribe((_p) => {
+            userPerms = _p ? _p : {};
+        });
+    return userPerms;
 }

@@ -1,19 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { userPermissionsState } from '../../store';
-import { take } from 'rxjs/operators';
-import { checkPermissions } from './permissions.func';
+import { checkPermissions, getPermissions } from './permissions.func';
 
 @Pipe({
     name: 'permissions'
 })
 export class PermissionsPipe implements PipeTransform {
-    constructor(private store: Store<any>) {
-
+    constructor() {
     }
 
     transform(required: any, args?: any): any {
-        const isPermitted = checkPermissions(required, this.getPermissions());
+        const userPerms = getPermissions();
+        const isPermitted = checkPermissions(required, userPerms);
 
         if (isPermitted) {
             return true;
@@ -22,14 +19,4 @@ export class PermissionsPipe implements PipeTransform {
             return false;
         }
     }
-
-    getPermissions() {
-        let perms;
-        this.store
-            .pipe(select(userPermissionsState),
-                take(1))
-            .subscribe((_p) => perms = _p);
-        return perms;
-    }
-
 }

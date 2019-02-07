@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
-import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { userPermissionsSelector, userPermissionsState } from '../../store';
-import { take } from 'rxjs/operators';
-import { checkPermissions } from './permissions.func';
+import { checkPermissions, getPermissions } from './permissions.func';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PermissionsGuardService implements CanActivate {
-    constructor(
-        private store: Store<any>) {
+    constructor() {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
-        const userPerms = this.getPermissions();
+        const userPerms = getPermissions();
         const required = route.data.permission;
 
         const isPermitted = checkPermissions(required, userPerms);
@@ -25,15 +21,5 @@ export class PermissionsGuardService implements CanActivate {
         }
 
         return isPermitted;
-    }
-
-    getPermissions() {
-        let perms;
-        this.store
-            .pipe(
-                select(userPermissionsState),
-                take(1))
-            .subscribe((_p) => perms = _p);
-        return perms;
     }
 }
