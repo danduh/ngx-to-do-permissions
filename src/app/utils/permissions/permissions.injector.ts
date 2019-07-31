@@ -1,5 +1,4 @@
 import { Injector } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 /**
  * Allows for retrieving singletons using `AppInjector.get(MyService)` (whereas

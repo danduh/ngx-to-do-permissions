@@ -1,31 +1,57 @@
+class Base {
+    constructor(first, last) {
+        this.first = first;
+        this.last = last
+
+    }
+
+    getFullName() {
+        return this.first + ' ' + this.last;
+    }
+
+}
+
+let _T = new Base('Jhon', 'Doe')
+
+let descriptor = Object.getOwnPropertyDescriptor(_T, 'getFullName');
+console.log('descriptor', descriptor);
+
+
+
+
 /**
 
  Simple example. of how property descriptor looks like
 
  **/
+{
 // 'use strict'
-let todoObject = {
-    title: 'Tasks For Today',
-    text: 'create more tasks',
-    deadLine: 999999999
-};
+    let todoObject = {
+        title: 'Tasks For Today',
+        text: 'create more tasks',
+        deadLine: 1602280800
+    };
 
-let descriptor = Object.getOwnPropertyDescriptor(todoObject, 'text');
-console.log(descriptor);
+    let keys = Object.keys(todoObject)
+    console.log(keys)
 
-/**
- Log ->
- {
-    value: 'create more tasks',
+    let descriptor = Object.getOwnPropertyDescriptor(todoObject, 'deadLine');
+    console.log(descriptor);
+
+    /**
+     Log ->
+     {
+    value: '1602280800',
     writable: true,
     enumerable: true,
     configurable: true
   }
 
- Where this can help us?
- For example we want to be sure, that 'deadline' property can't be changed
+     Where this can help us?
+     For example we want to be sure, that 'deadline' property can't be changed
 
- */
+     */
+}
 
 {
 
@@ -40,7 +66,7 @@ console.log(descriptor);
             configurable: true
         }
      */
-    // todoObject.deadLine = 8888888;
+    todoObject.deadLine = 1999999999;
     console.log(todoObject.deadLine);
 
     /**
@@ -66,7 +92,7 @@ console.log(descriptor);
 
      */
 
-    Object.defineProperty(todoObject, 'deadLine', {writable: false, configurable: false});
+    Object.defineProperty(todoObject, 'deadLine', {value: 1602280800, writable: false, configurable: false});
     todoObject.deadLine = 5555555;
     console.log(todoObject.deadLine);
     // outputs 7777777
