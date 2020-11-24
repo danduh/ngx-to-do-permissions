@@ -11,8 +11,7 @@ const routes: Routes = [
     },
     {
         path: 'list',
-        loadChildren: import('todo-comp/todo-comp.module').then(m => m.TodoCompModule)
-        // loadChildren: 'src/app/todo-comp/todo-comp.module#TodoCompModule'
+        loadChildren: () => import('./todo-comp/todo-comp.module').then(m => m.TodoCompModule)
     },
     {
         path: 'stat',
@@ -27,7 +26,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
     exports: [RouterModule]
 })
 export class AppRoutingModule {

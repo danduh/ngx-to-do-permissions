@@ -1,15 +1,13 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { Route, RouterModule, Routes } from '@angular/router';
-import { TodofooterComponent } from '../components/todofooter/todofooter.component';
-import { TodoCompComponent } from './todo-comp.component';
-import { SingleTodoComponent } from '../components/single-todo/single-todo.component';
-import { TodoInputComponent } from '../components/todo-input/todo-input.component';
-import { TodoStatisticsComponent } from '../todo-statistics/todo-statistics.component';
-import { TodoFilterPipe } from '../custom-pipes/filterPipe';
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { PermissionsModule } from '../utils/permissions/permissions.module';
-import { FormsModule } from '@angular/forms';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {TodofooterComponent} from '../components/todofooter/todofooter.component';
+import {TodoCompComponent} from './todo-comp.component';
+import {SingleTodoComponent} from '../components/single-todo/single-todo.component';
+import {TodoInputComponent} from '../components/todo-input/todo-input.component';
+import {TodoFilterPipe} from '../custom-pipes/filterPipe';
+import {CommonModule} from '@angular/common';
+import {PermissionsModule} from '../utils/permissions/permissions.module';
+import {FormsModule} from '@angular/forms';
 
 
 const routes: Routes = [
@@ -19,7 +17,7 @@ const routes: Routes = [
     }
 ];
 
-export const appRouter: ModuleWithProviders = RouterModule.forChild(routes);
+export const appRouter: ModuleWithProviders<unknown> = RouterModule.forChild(routes);
 
 
 @NgModule({
@@ -47,5 +45,9 @@ export const appRouter: ModuleWithProviders = RouterModule.forChild(routes);
     ]
 })
 export class TodoCompModule {
-
+    static forRoot(): ModuleWithProviders<TodoCompModule> {
+        return {
+            ngModule: TodoCompModule
+        };
+    }
 }

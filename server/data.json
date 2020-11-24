@@ -2,12 +2,12 @@
   "todos": [
     {
       "name": "Task 1",
-      "completed": false,
+      "completed": true,
       "id": 1
     },
     {
       "name": "Task 2",
-      "completed": true,
+      "completed": false,
       "id": 2
     }
   ]
