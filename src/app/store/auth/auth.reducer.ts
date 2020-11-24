@@ -2,6 +2,9 @@ const initialState = {
     todos: {
         read: '*',
         update: '*'
+    },
+    stats: {
+        read: '*'
     }
 };
 

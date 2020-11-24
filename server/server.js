@@ -13,6 +13,10 @@ server.use(jsonServer.bodyParser);
 server.get('/todos', function (req, res, next) {
     const db = router.db;
     let filter = {};
+
+    if (req.query.completed === 'false') {
+        filter = Object.assign(filter, {completed: false})
+    }
     if (req.query.completed === 'true') {
         filter = Object.assign(filter, {completed: true})
     }
