@@ -4,6 +4,9 @@
     <li *ngFor="let filter of filterOptions">
         <button class="button-def" [class.selected-filter]="curFilter===filter" (click)="setFilter(filter)">{{filter}}</button>
     </li>
+    <li>
+        <button class="button-def clear-completed" (click)="deleteCompleted()" *ngIf="metadata.completed">Clear completed</button>
+    </li>
 </ul>
-<button class="clear-completed" (click)="deleteCompleted()" *ngIf="metadata.completed">Clear completed</button>
+
 <a routerLink="/stat">View Statistics</a>
