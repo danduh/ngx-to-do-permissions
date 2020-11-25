@@ -7,8 +7,23 @@
     },
     {
       "name": "Task 2",
-      "completed": false,
+      "completed": true,
       "id": 2
+    },
+    {
+      "name": "Add new",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "name": "Set times for ",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "name": "Deserve GDE",
+      "completed": false,
+      "id": 5
     }
   ]
 }

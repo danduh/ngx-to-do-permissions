@@ -1,7 +1,8 @@
 const initialState = {
     todos: {
         read: '*',
-        update: '*'
+        update: '*',
+        create: '*'
     },
     stats: {
         read: '*'
