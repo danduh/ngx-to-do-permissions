@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Permissions } from '../../utils/permissions/permissions.decorator';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Permissions} from '../../utils/permissions/permissions.decorator';
 
 @Component({
     selector: 'app-todofooter',
@@ -13,19 +13,19 @@ export class TodofooterComponent implements OnInit {
     @Input() curFilter;
 
 
-    @Output('deleteCompleted') onDeleteCompleted = new EventEmitter();
-    @Output('onFilterSelected') onFilterSelected = new EventEmitter();
+    @Output() delCompleted = new EventEmitter();
+    @Output() filterSelected = new EventEmitter();
 
     constructor() {
     }
 
     @Permissions('todos_delete')
     public deleteCompleted() {
-        this.onDeleteCompleted.emit();
+        this.delCompleted.emit();
     }
 
     setFilter(filter: string) {
-        this.onFilterSelected.emit(filter);
+        this.filterSelected.emit(filter);
     }
 
     ngOnInit() {

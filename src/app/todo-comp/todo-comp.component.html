@@ -20,8 +20,8 @@
         <app-todofooter [metadata]="metadata"
                         [curFilter]="curFilter | async"
                         [filterOptions]="todoService.filterOptions"
-                        (deleteCompleted)="clearCompleted(todos)"
-                        (onFilterSelected)="updateCurFilter($event)"></app-todofooter>
+                        (delCompleted)="clearCompleted(todos)"
+                        (filterSelected)="updateCurFilter($event)"></app-todofooter>
     </div>
 </div>
 </div>
