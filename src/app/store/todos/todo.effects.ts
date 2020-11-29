@@ -20,7 +20,7 @@ export class TodosEffects {
 
                 if (!action.payload) {
                     this.curFilter.subscribe(_filter => filter = _filter);
-                    console.log('filter', filter);
+                    // console.log('filter', filter);
                 } else {
                     filter = action.payload;
                 }

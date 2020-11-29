@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Todo} from '../todo';
 import {TodoService} from '../todo.service';
 import {select, Store} from '@ngrx/store';
 import {AppState, metadataSelector, todosListSelector} from '../store';
 import * as FilterActions from '../store/filter/actions';
-
 import * as TodoActions from '../store/todos/todo.actions';
-import {tap} from 'rxjs/operators';
+
 
 @Component({
     selector: 'app-todo-comp',
@@ -32,12 +30,12 @@ export class TodoCompComponent implements OnInit {
         this.todoList = this.store
             .pipe(
                 select(todosListSelector),
-                tap((_) => console.log(_))
+                // tap((_) => console.log(_))
             );
         this.store
             .pipe(
                 select(metadataSelector),
-                tap((_) => console.log(_))
+                // tap((_) => console.log(_))
             ).subscribe(metadata => this.metadata = metadata);
 
 
@@ -53,7 +51,6 @@ export class TodoCompComponent implements OnInit {
     // 3. Add nice css;
     // 4. Add loading animation
 
-    // @Permissions('experts_MAin')
     updateCurFilter(filter) {
         this.store.dispatch(new FilterActions.UpdateFilter(filter));
     }
@@ -87,11 +84,7 @@ export class TodoCompComponent implements OnInit {
     }
 
     clearCompleted(): void {
-        // const ids = todos.filter(todo => todo.completed)
-        //     .map(todo => todo.id);
-
         this.store.dispatch(new TodoActions.RemoveCompletedTodos());
-
     }
 
     ngOnInit() {

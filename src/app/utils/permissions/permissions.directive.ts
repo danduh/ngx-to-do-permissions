@@ -1,6 +1,9 @@
 import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef} from '@angular/core';
 import {isPermitted} from './permissions.func';
 
+/**
+ * Structural Directive
+ */
 @Directive({
     selector: '[appPermissions]'
 })

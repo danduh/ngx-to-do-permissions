@@ -1,49 +1,46 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 
 @Component({
-    selector: 'app-single-todo',
-    templateUrl: './single-todo.component.html',
-    styleUrls: ['./single-todo.component.css']
+  selector: 'app-single-todo',
+  templateUrl: './single-todo.component.html',
+  styleUrls: ['./single-todo.component.css']
 })
 export class SingleTodoComponent implements OnInit {
-    @ViewChild('editInput') editInput: ElementRef;
+  @ViewChild('editInput') editInput: ElementRef;
 
-    @Input() singleTodo;
+  @Input() singleTodo;
 
+  @Output('onComplete') onComplete = new EventEmitter();
+  @Output('onEdit') onEdit = new EventEmitter();
+  @Output('onRemove') onRemove = new EventEmitter();
 
-    @Output('onComplete') onComplete = new EventEmitter();
-    @Output('onEdit') onEdit = new EventEmitter();
-    @Output('onRemove') onRemove = new EventEmitter();
+  public isEdit = false;
+  public isHovered;
 
-    public isEdit: false;
-    public isHovered;
+  constructor() {
+    this.isHovered = true;
+  }
 
-    constructor() {
-        this.isHovered = true;
-    }
+  ngOnInit() {
+  }
 
-    ngOnInit() {
+  completeToggle() {
+    this.onComplete.emit(this.singleTodo);
+  }
 
-    }
+  editName() {
+    this.isEdit = false;
+    this.onEdit.emit(this.singleTodo);
+  }
 
-    completeToggle() {
-        this.onComplete.emit(this.singleTodo);
-    }
+  removeSingleTodo() {
+    this.onRemove.emit(this.singleTodo.id);
+  }
 
-    editName() {
-        this.isEdit = false;
-        this.onEdit.emit(this.singleTodo);
-    }
-
-    removeSingleTodo() {
-        this.onRemove.emit(this.singleTodo.id);
-        console.log(this.singleTodo.id);
-    }
-
-    setFocus() {
-        setTimeout(() => {   //kostyl veka
-            this.editInput.nativeElement.focus();
-        }, 0);
-    }
+  setFocus() {
+    setTimeout(() => {   // kostyl veka
+      this.editInput.nativeElement.focus();
+    }, 0);
+  }
 
 }

@@ -1,25 +1,26 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { checkPermissions, getPermissions } from './permissions.func';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
+import {Observable} from 'rxjs';
+import {isPermitted} from './permissions.func';
+import {tap} from 'rxjs/operators';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class PermissionsGuardService implements CanActivate {
-    constructor() {
-    }
+  constructor() {
+  }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
-        const userPerms = getPermissions();
-        const required = route.data.permission;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    const required: string = route.data.permission;
 
-        const isPermitted = checkPermissions(required, userPerms);
-
-        if (!isPermitted) {
+    return isPermitted(required)
+      .pipe(
+        tap((canDo) => {
+          if (!canDo) {
             alert('ROUTE GUARD SAYS: \n You don\'t have permissions to see this page');
-        }
-
-        return isPermitted;
-    }
+          }
+        })
+      );
+  }
 }
