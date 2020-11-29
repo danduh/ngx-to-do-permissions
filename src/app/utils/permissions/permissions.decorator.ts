@@ -1,13 +1,16 @@
 import {isPermitted} from './permissions.func';
 
 
-export function Permissions(required) {
-  return (classProto, propertyKey, descriptor) => {
-
+/**
+ * Decorator
+ * @param required permission we looking for: <todos_read>
+ * @constructor
+ */
+export const Permissions: (required: string) => MethodDecorator = (required: string) => {
+  return (classProto, propertyKey, descriptor: TypedPropertyDescriptor<any>) => {
     const originalFunction = descriptor.value;
 
-    descriptor.value = function (...args: any[]) {
-
+    descriptor.value = (...args: any[]) => {
       isPermitted(required)
         .subscribe((canDo) => {
           if (canDo) {
@@ -20,4 +23,4 @@ export function Permissions(required) {
     };
     return descriptor;
   };
-}
+};
