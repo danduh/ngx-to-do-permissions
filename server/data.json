@@ -1,29 +1,19 @@
 {
   "todos": [
     {
-      "name": "Task 1",
-      "completed": true,
-      "id": 1
-    },
-    {
-      "name": "Task 2",
-      "completed": true,
-      "id": 2
-    },
-    {
-      "name": "Add new",
-      "completed": false,
-      "id": 3
-    },
-    {
-      "name": "Set times for ",
-      "completed": false,
-      "id": 4
-    },
-    {
       "name": "Deserve GDE",
-      "completed": false,
+      "completed": true,
       "id": 5
+    },
+    {
+      "name": "Something Cool TODO",
+      "completed": false,
+      "id": 7
+    },
+    {
+      "name": "Be cool",
+      "completed": false,
+      "id": 8
     }
   ]
 }

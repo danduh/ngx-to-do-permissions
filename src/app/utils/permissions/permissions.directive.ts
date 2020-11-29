@@ -1,5 +1,5 @@
-import { Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { checkPermissions, getPermissions } from './permissions.func';
+import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef} from '@angular/core';
+import {isPermitted} from './permissions.func';
 
 @Directive({
     selector: '[appPermissions]'
@@ -22,13 +22,13 @@ export class PermissionsDirective {
     }
 
     init() {
-        const userPerms = getPermissions();
-        const isPermitted = checkPermissions(this._required, userPerms);
-
-        if (isPermitted) {
-            this._viewRef = this.viewContainerRef.createEmbeddedView(this.templateRef);
-        } else {
-            console.log('PERMISSIONS DIRECTIVE says \n You don\'t have permissions to see it');
-        }
+        isPermitted(this._required)
+            .subscribe((canDo) => {
+                if (canDo) {
+                    this._viewRef = this.viewContainerRef.createEmbeddedView(this.templateRef);
+                } else {
+                    console.log('PERMISSIONS DIRECTIVE says \n You don\'t have permissions to see it');
+                }
+            });
     }
 }
