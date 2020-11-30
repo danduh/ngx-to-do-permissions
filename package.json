@@ -10,7 +10,7 @@
         "e2e": "ng e2e",
         "babel": "babel --presets es2015 -d lib/ decorators",
         "server": "node ./server/server.js",
-        "start:all":"npm start & npm run server"
+        "start:all": "npm start & npm run server"
     },
     "private": true,
     "dependencies": {
