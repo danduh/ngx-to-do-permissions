@@ -4,7 +4,7 @@ const initialState = {
     update: '*',
     create: '*',
   },
-  // stats:'*'
+  stats: '*'
 };
 
 export function userPermissionsReducer(state = initialState, action) {
