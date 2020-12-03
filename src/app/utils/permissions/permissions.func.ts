@@ -4,7 +4,10 @@ import {userPermissionsState} from '../../store';
 import {map, take} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
-
+/**
+ *
+ * @param required - permission required for view/action
+ */
 export function isPermitted(required: string): Observable<boolean> {
   const store: Store<any> = AppInjector.get(Store);
 
