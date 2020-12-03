@@ -19,7 +19,7 @@ export class TodofooterComponent implements OnInit {
     constructor() {
     }
 
-    @Permissions('todos_delete')
+
     public deleteCompleted() {
         this.delCompleted.emit();
     }

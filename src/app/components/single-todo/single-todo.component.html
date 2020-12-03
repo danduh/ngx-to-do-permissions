@@ -7,8 +7,6 @@
                    [class.hide]="isEdit"/>
             <span class="checkmark" [class.hide]="isEdit"></span>
         </label>
-
-
         <label class="label-name" *ngIf="!isEdit" (dblclick)="isEdit = true; setFocus()">{{singleTodo.name}}</label>
         <button
             *appPermissions="'todos_delete'"
