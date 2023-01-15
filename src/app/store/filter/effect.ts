@@ -1,25 +1,25 @@
-import {Store} from '@ngrx/store';
-import {map} from 'rxjs/operators';
-import {GetTodos} from '../todos/todo.actions';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Injectable} from '@angular/core';
-import {FiltersActions, FiltersActionsTypes} from './actions';
-import {AppState} from '../index';
+import { createEffect, ofType, Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { loadTodos } from '../todos/todo.actions';
+import { Injectable } from '@angular/core';
+
+import { AppState } from '../index';
+import { updateFilter } from './actions';
 
 @Injectable()
 export class FilterEffects {
-
-    @Effect({dispatch: false})
-    changeFilter$ = this.actions$.pipe(
-        ofType<FiltersActionsTypes>(FiltersActions.UPDATE_FILTER),
+  changeFilter$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(updateFilter),
         map((action) => {
-                console.log('action', action);
-                this.store.dispatch(new GetTodos(action.payload));
-            }
-        )
-    );
+          console.log('action', action);
+          this.store.dispatch(loadTodos({ payload: action.payload }));
+        })
+      ),
+    { dispatch: false }
+  );
 
-    constructor(private actions$: Actions,
-                private store: Store<AppState>) {
-    }
+  constructor(private actions$: Actions, private store: Store<AppState>) {}
 }

@@ -1,26 +1,25 @@
-import {Component, OnInit} from '@angular/core';
-import {TodoService} from '../todo.service';
-import {select, Store} from '@ngrx/store';
-import {AppState, metadataSelector, todosListSelector} from '../store';
+import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { AppState, metadataSelector, todosListSelector } from '../store';
 import * as FilterActions from '../store/filter/actions';
 import * as TodoActions from '../store/todos/todo.actions';
-import {Permissions} from '../utils/permissions/permissions.decorator';
+import { Permissions } from '../utils/permissions/permissions.decorator';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-todo-comp',
   templateUrl: './todo-comp.component.html',
-  styleUrls: ['./todo-comp.component.css']
+  styleUrls: [ './todo-comp.component.css' ]
 })
-
-export class TodoCompComponent implements OnInit {
+export class TodoCompComponent {
   todoList;
   curFilter;
   metadata;
 
-  constructor(private todoService: TodoService,
-              private store: Store<AppState>) {
+  constructor(private store: Store<AppState>,
+              private todoService: TodoService){
 
-    this.store.dispatch(new TodoActions.GetTodos());
+    this.store.dispatch(TodoActions.loadTodos({}));
 
     this.curFilter = this.store
       .pipe(
@@ -51,45 +50,40 @@ export class TodoCompComponent implements OnInit {
   // 3. Add nice css;
   // 4. Add loading animation
 
-  updateCurFilter(filter) {
-    this.store.dispatch(new FilterActions.UpdateFilter(filter));
+  updateCurFilter(filter){
+    this.store.dispatch(FilterActions.updateFilter({payload: filter}));
   }
 
-  addTodo(newTodoVal: string): void {
-    const _todo = {
+  addTodo(newTodoVal: string): void{
+    const todo = {
       name: newTodoVal,
       completed: false
     };
-    this.store.dispatch(new TodoActions.AddTodo(_todo));
+    this.store.dispatch(TodoActions.addTodo({payload: todo}));
   }
 
-  removeTodo(id: number): void {
-    console.log('from parent: ', id);
-    this.store.dispatch(new TodoActions.RemoveTodo(id));
+  removeTodo(id: number): void{
+    this.store.dispatch(TodoActions.removeTodo({payload: id}));
   }
 
 
-  editTodo(todo): void {
+  editTodo(todo): void{
     if (!!todo.name) {
-      this.store.dispatch(new TodoActions.UpdateTodo(todo));
+      this.store.dispatch(TodoActions.updateTodo(todo));
     } else {
       this.removeTodo(todo.id);
     }
   }
 
 
-  completeToggle(todo): void {
+  completeToggle(todo): void{
     todo.completed = !todo.completed;
-    this.store.dispatch(new TodoActions.UpdateTodo(todo));
+    this.store.dispatch(TodoActions.updateTodo({payload: todo}));
   }
 
   @Permissions('todos_delete')
-  clearCompleted(): void {
-    this.store.dispatch(new TodoActions.RemoveCompletedTodos());
-  }
-
-  ngOnInit() {
-
+  clearCompleted(): void{
+    this.store.dispatch(TodoActions.removeCompletedTodos());
   }
 
 }

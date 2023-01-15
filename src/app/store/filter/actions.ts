@@ -1,15 +1,5 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
-export enum FiltersActions {
-    UPDATE_FILTER = '[FILTER] Update'
-}
+export const updateFilter = createAction('[FILTER] Update', props<{ payload: string }>());
 
-
-export class UpdateFilter implements Action {
-    readonly type = FiltersActions.UPDATE_FILTER;
-
-    constructor(public payload: string) {}
-}
-
-
-export type FiltersActionsTypes = UpdateFilter ;
+export type FiltersActionsTypes = typeof updateFilter;
