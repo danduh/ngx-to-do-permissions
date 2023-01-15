@@ -1,24 +1,29 @@
-import { isPermitted } from './permissions.func';
-
+import { Store } from '@ngrx/store';
+import { AppInjector } from './permissions.injector';
+import { isPermittedState } from '../../store';
 
 /**
- * Decorator
- * @param required permission we're looking for: <todos_read>
- * @constructor
+ * A decorator that checks if the user has the required permissions before
+ * executing the original method.
+ *
+ * @param required - The required permission to check for
  */
-export const Permissions: (required: string) => MethodDecorator = (required: string) => {
-  return (classProto, propertyKey, descriptor: TypedPropertyDescriptor<any>) => {
+export function Permissions(required: string){
+  return function (classProto, propertyKey, descriptor: TypedPropertyDescriptor<any>){
     const originalFunction = descriptor.value;
-
-    Object.defineProperty(classProto, propertyKey, {
-      value: function (...args: any[]){
-        if (isPermitted(required)) {
-          return originalFunction.apply(this, args);
-        } else {
-          console.log('You are not permitted to do this');
-        }
+    descriptor.value = function (...args: any[]){
+      let allowed = false;
+      AppInjector.get(Store).select(isPermittedState(required))
+        .subscribe((canDo) => {
+          allowed = canDo;
+        });
+      if (allowed) {
+        console.log('PERMISSIONS DECORATOR says \n You have permissions to see it');
+        return originalFunction.apply(this, args);
+      } else {
+        console.log('You are not permitted to do this');
       }
-    });
+    };
     return descriptor;
   };
 };

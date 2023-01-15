@@ -1,34 +1,31 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Permissions} from '../../utils/permissions/permissions.decorator';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CountPipe } from '../../custom-pipes/countPipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-todofooter',
-    templateUrl: './todofooter.component.html',
-    styleUrls: ['./todofooter.component.css']
+  selector: 'app-todofooter',
+  templateUrl: './todofooter.component.html',
+  styleUrls: [ './todofooter.component.css' ],
+  imports: [ CommonModule, CountPipe, RouterLink ],
+  standalone: true,
 })
-export class TodofooterComponent implements OnInit {
+export class TodofooterComponent {
 
-    @Input() metadata;
-    @Input() filterOptions;
-    @Input() curFilter;
-
-
-    @Output() delCompleted = new EventEmitter();
-    @Output() filterSelected = new EventEmitter();
-
-    constructor() {
-    }
+  @Input() metadata;
+  @Input() filterOptions;
+  @Input() curFilter;
 
 
-    public deleteCompleted() {
-        this.delCompleted.emit();
-    }
+  @Output() delCompleted = new EventEmitter();
+  @Output() filterSelected = new EventEmitter();
 
-    setFilter(filter: string) {
-        this.filterSelected.emit(filter);
-    }
+  public deleteCompleted(){
+    this.delCompleted.emit();
+  }
 
-    ngOnInit() {
-    }
+  setFilter(filter: string){
+    this.filterSelected.emit(filter);
+  }
 
 }

@@ -1,23 +1,22 @@
-import {select, Store} from '@ngrx/store';
-import {AppInjector} from './permissions.injector';
-import {userPermissionsState} from '../../store';
-import {map, take} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { AppInjector } from './permissions.injector';
+import { userPermissionsState } from '../../store';
+import { map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
 
 /**
  *
  * @param required - permission required for view/action
  */
-export function isPermitted(required: string): Observable<boolean> {
-  const store: Store<any> = AppInjector.get(Store);
-
-  return store
+export const isPermitted = (required: string): Observable<boolean> => {
+  console.log('isPermitted()');
+  return inject(Store).select(userPermissionsState)
     .pipe(
-      select(userPermissionsState),
       take(1),
       map((userPerms) => {
-        const [feature, action] = required.split('_');
 
+        const [ feature, action ] = required.split('_');
         if (!userPerms.hasOwnProperty(feature)) {
           return false;
         }
@@ -34,4 +33,4 @@ export function isPermitted(required: string): Observable<boolean> {
         return true;
       })
     );
-}
+};

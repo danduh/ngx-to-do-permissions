@@ -13,13 +13,12 @@ export let AppInjector: Injector;
  * which trying to make changes after using `import {AppInjector}` would throw:
  * "TS2539: Cannot assign to 'AppInjector' because it is not a variable".
  */
-export function setAppInjector(injector: Injector) {
-
-    if (AppInjector) {
-        // Should not happen
-        console.error('Programming error: AppInjector was already set');
-    } else {
-        // AppInjector = Injector.create({providers: [{provide: Store, deps: []}]});
-        AppInjector = injector;
-    }
+export function setAppInjector(injector: Injector){
+  if (AppInjector) {
+    // Should not happen
+    console.error('Programming error: AppInjector was already set');
+  } else {
+    // AppInjector = Injector.create({providers: [{provide: Store, deps: []}]});
+    AppInjector = injector;
+  }
 }

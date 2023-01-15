@@ -1,11 +1,22 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { PermissionsPipe } from '../../utils/permissions/permissions.pipe';
+import { PermissionsDirective } from '../../utils/permissions/permissions.directive';
 
 @Component({
   selector: 'app-single-todo',
   templateUrl: './single-todo.component.html',
-  styleUrls: ['./single-todo.component.css']
+  styleUrls: [ './single-todo.component.css' ],
+  standalone: true,
+  imports: [
+    FormsModule,
+    PermissionsPipe,
+    CommonModule,
+    PermissionsDirective
+  ]
 })
-export class SingleTodoComponent implements OnInit {
+export class SingleTodoComponent {
   @ViewChild('editInput') editInput: ElementRef;
 
   @Input() singleTodo;
@@ -17,30 +28,24 @@ export class SingleTodoComponent implements OnInit {
   public isEdit = false;
   public isHovered;
 
-  constructor() {
+  constructor(){
     this.isHovered = true;
   }
 
-  ngOnInit() {
-  }
-
-  completeToggle() {
+  completeToggle(){
     this.onComplete.emit(this.singleTodo);
   }
 
-  editName() {
+  editName(){
     this.isEdit = false;
     this.onEdit.emit(this.singleTodo);
   }
 
-  removeSingleTodo() {
+  removeSingleTodo(){
     this.onRemove.emit(this.singleTodo.id);
   }
 
-  setFocus() {
-    setTimeout(() => {   // kostyl veka
-      this.editInput.nativeElement.focus();
-    }, 0);
+  setFocus(){
+    this.editInput.nativeElement.focus();
   }
-
 }

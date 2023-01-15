@@ -1,12 +1,10 @@
-import {Injectable} from '@angular/core';
-import {BaseTodo, Todo} from './todo';
-import {Observable, throwError} from 'rxjs';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {catchError, map} from 'rxjs/operators';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Store} from '@ngrx/store';
-import {AppState} from './store';
-import {TodoState} from './store/todos/todo.reducer';
+import { Injectable } from '@angular/core';
+import { BaseTodo, Todo } from './todo';
+import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { TodoState } from './store/todos/todo.reducer';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,28 +16,25 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class TodoService {
-
-
-  constructor(private http: HttpClient,
-              private store: Store<AppState>) {
+  constructor(private http: HttpClient){
   }
 
   readonly baseUrl = 'http://localhost:3000/todos';
-  readonly filterOptions = ['ALL', 'ACTIVE', 'COMPLETED'];
+  readonly filterOptions = [ 'ALL', 'ACTIVE', 'COMPLETED' ];
 
-  handleError(error: HttpErrorResponse) {
+  handleError(error: HttpErrorResponse){
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
     } else {
       console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `Backend returned code ${ error.status }, ` +
+        `body was: ${ error.error }`);
     }
     return throwError(
       'Something bad happened; please try again later.');
   };
 
-  getTodoList(payload?): Observable<TodoState> {
+  getTodoList(payload?): Observable<TodoState>{
     const options = {
       params: new HttpParams()
     };
@@ -66,20 +61,20 @@ export class TodoService {
         catchError(this.handleError));
   }
 
-  saveTodo(todo: BaseTodo): Observable<Todo> {
+  saveTodo(todo: BaseTodo): Observable<Todo>{
     return this.http.post<Todo>(this.baseUrl, todo, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  deleteTodo(id: number): Observable<{}> {
-    return this.http.delete<{}>(`${this.baseUrl}/${id}`, httpOptions).pipe(
+  deleteTodo(id: number): Observable<{}>{
+    return this.http.delete<{}>(`${ this.baseUrl }/${ id }`, httpOptions).pipe(
       catchError(this.handleError)
     );
   };
 
-  updateTodo(id: number, partialTodo): Observable<number> {
-    return this.http.patch<{ id: number }>(`${this.baseUrl}/${id}`, partialTodo, httpOptions).pipe(
+  updateTodo(id: number, partialTodo): Observable<number>{
+    return this.http.patch<{ id: number }>(`${ this.baseUrl }/${ id }`, partialTodo, httpOptions).pipe(
       map(data => {
         return data.id;
       }),
@@ -88,7 +83,7 @@ export class TodoService {
   }
 
 
-  removeAllCompleted(): Observable<Todo[]> {
+  removeAllCompleted(): Observable<Todo[]>{
     return this.http.delete<Todo[]>(this.baseUrl + '/deleteCompleted', httpOptions).pipe(
       catchError(this.handleError)
     );
