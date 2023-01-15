@@ -1,7 +1,6 @@
 import {reducer, TodoState} from './todos/todo.reducer';
 import {reducerFilter} from './filter/reducer';
 
-import {Todo} from '../todo';
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {userPermissionsReducer} from './auth/auth.reducer';
 

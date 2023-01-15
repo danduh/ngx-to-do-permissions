@@ -1,4 +1,4 @@
-import {isPermitted} from './permissions.func';
+import { isPermitted } from './permissions.func';
 
 
 /**
@@ -10,17 +10,15 @@ export const Permissions: (required: string) => MethodDecorator = (required: str
   return (classProto, propertyKey, descriptor: TypedPropertyDescriptor<any>) => {
     const originalFunction = descriptor.value;
 
-    descriptor.value = (...args: any[]) => {
-      isPermitted(required)
-        .subscribe((canDo) => {
-          if (canDo) {
-            originalFunction.apply(this, args);
-          } else {
-            // Should throw/log error, but for better visibility will use alert()
-            alert('PERMISSIONS DECORATOR says \n you have no permissions');
-          }
-        });
-    };
+    Object.defineProperty(classProto, propertyKey, {
+      value: function (...args: any[]){
+        if (isPermitted(required)) {
+          return originalFunction.apply(this, args);
+        } else {
+          console.log('You are not permitted to do this');
+        }
+      }
+    });
     return descriptor;
   };
 };

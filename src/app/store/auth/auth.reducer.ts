@@ -3,6 +3,7 @@ const initialState = {
     read: '*',
     update: '*',
     create: '*',
+    delete: '*'
   },
   stats: '*'
 };

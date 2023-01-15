@@ -1,94 +1,85 @@
-import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {Action, Store} from '@ngrx/store';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import * as TodoActions from './todo.actions';
-import {TodoService} from '../../todo.service';
-import {AppState} from '../index';
+import { switchMap, map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../index';
+import { TodoService } from '../../todo.service';
+
 
 @Injectable()
 export class TodosEffects {
-    curFilter;
+  curFilter;
 
-    @Effect()
-    loadList$: Observable<Action> = this.actions$.pipe(
-        ofType<TodoActions.TodosActionTypes>(TodoActions.TodosActions.LOAD_TODOS),
-        mergeMap((action) => {
-                let filter;
+  loadList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TodoActions.loadTodos),
+      switchMap((action) => {
+        let filter;
+        if (!action.payload) {
+          this.curFilter.subscribe((_filter) => (filter = _filter));
+        } else {
+          filter = action.payload;
+        }
+        return this.todoService.getTodoList(filter).pipe(
+          map((resp) => TodoActions.loadTodosSuccess({payload: resp})),
+          catchError((error) => of(TodoActions.loadTodosFailed({payload: error})))
+        );
+      })
+    )
+  );
 
-                if (!action.payload) {
-                    this.curFilter.subscribe(_filter => filter = _filter);
-                    // console.log('filter', filter);
-                } else {
-                    filter = action.payload;
-                }
-
-                return this.todoService.getTodoList(filter)
-                    .pipe(
-                        map((resp) => new TodoActions.GetTodosSuccess(resp)),
-                        catchError((error) => of(new TodoActions.GetTodosFailed(error)))
-                    );
-            }
+  addTodo$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(TodoActions.addTodo),
+        switchMap((action) => {
+            console.log(action);
+            return this.todoService.saveTodo(action.payload)
+              .pipe(map(() => {
+                console.log('addTodo$');
+                return TodoActions.loadTodos({});
+              }));
+          }
         )
-    );
+      )
+  );
 
-    @Effect()
-    addTodo$ = this.actions$.pipe(
-        ofType<TodoActions.TodosActionTypes>(TodoActions.TodosActions.ADD_TODO),
-        mergeMap((action) => {
-                return this.todoService.saveTodo(action.payload)
-                    .pipe(
-                        map((resp) => new TodoActions.GetTodos())
-                    );
-                }
+  removeTodo$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(TodoActions.removeTodo),
+        switchMap((action) =>
+          this.todoService.deleteTodo(action.payload).pipe(map(() => TodoActions.loadTodos({})))
         )
-    );
+      )
+  );
 
-    @Effect()
-     removeTodo$ = this.actions$.pipe(
-        ofType<TodoActions.TodosActionTypes>(TodoActions.TodosActions.REMOVE_TODO),
-        mergeMap((action) => {
-                return this.todoService.deleteTodo(action.payload)
-                    .pipe(
-                        map((resp) => new TodoActions.GetTodos())
-                    );
-            }
+  updateTodo$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(TodoActions.updateTodo),
+        switchMap((action) =>
+          this.todoService
+            .updateTodo(action.payload.id, action.payload)
+            .pipe(map(() => TodoActions.loadTodos({})))
         )
-    );
+      )
+  );
 
-    @Effect()
-    updateTodo$ = this.actions$.pipe(
-        ofType<TodoActions.TodosActionTypes>(TodoActions.TodosActions.UPDATE_TODO),
-        mergeMap((action) => {
-                return this.todoService.updateTodo(action.payload.id, action.payload)
-                    .pipe(
-                        map((resp) => new TodoActions.GetTodos())
-                    );
-            }
+  removeCompletedTodos$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(TodoActions.removeCompletedTodos),
+        switchMap(() =>
+          this.todoService.removeAllCompleted().pipe(map(() => TodoActions.loadTodos({})))
         )
-    );
+      )
+  );
 
-    @Effect()
-    removeCompletedTodos$ = this.actions$.pipe(
-        ofType<TodoActions.TodosActionTypes>(TodoActions.TodosActions.REMOVE_COMPLETED_TODOS),
-        mergeMap((action) => {
-                return this.todoService.removeAllCompleted()
-                    .pipe(
-                        map((resp) => new TodoActions.GetTodos())
-                    );
-            }
-        )
-    );
-
-
-
-    constructor(private actions$: Actions,
-                private store: Store<AppState>,
-                private todoService: TodoService) {
-
-        this.curFilter = this.store.select('filter');
-
-    }
+  constructor(private actions$: Actions, private store: Store<AppState>, private todoService: TodoService){
+    this.curFilter = this.store.select((state) => state.filter);
+  }
 }
