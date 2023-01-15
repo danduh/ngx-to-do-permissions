@@ -8,6 +8,6 @@ const initialState = {
 };
 
 
-export function userPermissionsReducer(state = initialState, action) {
+export function userPermissionsReducer(state = initialState, action){
   return {...state};
 }

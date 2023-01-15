@@ -2,28 +2,8 @@
   "todos": [
     {
       "name": "Make this world better",
-      "completed": false,
+      "completed": true,
       "id": 12
-    },
-    {
-      "name": "fdajfhg\\",
-      "completed": false,
-      "id": 13
-    },
-    {
-      "name": "fadsfsd",
-      "completed": true,
-      "id": 14
-    },
-    {
-      "name": "fs",
-      "completed": true,
-      "id": 15
-    },
-    {
-      "name": "f",
-      "completed": false,
-      "id": 16
     }
   ]
 }

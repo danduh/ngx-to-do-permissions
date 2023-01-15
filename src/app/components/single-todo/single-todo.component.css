@@ -37,7 +37,7 @@
     position: fixed;
     top: 8px;
     left: 7px;
-    background: radial-gradient(circle, white 40%, cornflowerblue 45%, cornflowerblue 0%, transparent 20%);
+    background: radial-gradient(circle, white 40%, cornflowerblue 45%, cornflowerblue 0%, transparent 60%);
 }
 
 input[type="checkbox"] {

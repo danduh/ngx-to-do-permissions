@@ -3,7 +3,7 @@ import {isPermitted} from './permissions.func';
 
 /**
  * Decorator
- * @param required permission we looking for: <todos_read>
+ * @param required permission we're looking for: <todos_read>
  * @constructor
  */
 export const Permissions: (required: string) => MethodDecorator = (required: string) => {
