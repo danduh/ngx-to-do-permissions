@@ -1,26 +1,26 @@
 <h1>TODOS</h1>
 <div class="shadow">
-<app-todo-input (onAdd)="addTodo($event)"></app-todo-input>
+  <app-todo-input (onAdd)="addTodo($event)"></app-todo-input>
 
-<div id="list" *ngIf="todoList | async as todos" class="centered">
+  <div id="list" *ngIf="todoList | async as todos" class="centered">
     <ul class="ul-todos">
-        <ng-container *ngFor="let todo of todos">
-            <app-single-todo
-                [singleTodo]="todo"
-                (onComplete)="completeToggle($event)"
-                (onEdit)="editTodo($event)"
-                (onRemove)="removeTodo($event)"></app-single-todo>
+      <ng-container *ngFor="let todo of todos">
+        <app-single-todo
+          [singleTodo]="todo"
+          (onComplete)="completeToggle($event)"
+          (onEdit)="editTodo($event)"
+          (onRemove)="removeTodo($event)"></app-single-todo>
 
 
-        </ng-container>
+      </ng-container>
     </ul>
-    <div id="footer" class="footer" *ngIf="metadata && metadata.all>0">
-        <app-todofooter [metadata]="metadata"
-                        [curFilter]="curFilter | async"
-                        [filterOptions]="todoService.filterOptions"
-                        (delCompleted)="clearCompleted()"
-                        (filterSelected)="updateCurFilter($event)"></app-todofooter>
+    <div id="footer" class="footer" *ngIf="metadata | async as meta">
+      <app-todofooter [metadata]="metadata | async"
+                      [curFilter]="curFilter | async"
+                      [filterOptions]="todoService.filterOptions"
+                      (delCompleted)="clearCompleted()"
+                      (filterSelected)="updateCurFilter($event)"></app-todofooter>
     </div>
-</div>
+  </div>
 </div>
 

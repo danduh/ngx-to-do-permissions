@@ -11,11 +11,9 @@ import { RouterLink } from '@angular/router';
   standalone: true,
 })
 export class TodofooterComponent {
-
   @Input() metadata;
   @Input() filterOptions;
   @Input() curFilter;
-
 
   @Output() delCompleted = new EventEmitter();
   @Output() filterSelected = new EventEmitter();

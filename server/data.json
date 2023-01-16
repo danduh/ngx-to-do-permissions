@@ -1,19 +1,14 @@
 {
   "todos": [
     {
-      "name": "sasdasd",
-      "completed": true,
+      "name": "Hi there",
+      "completed": false,
       "id": 3
     },
     {
-      "name": "lkklkdasd",
-      "completed": true,
-      "id": 4
-    },
-    {
-      "name": "jlkjlkjh",
+      "name": "Hio there",
       "completed": false,
-      "id": 5
+      "id": 4
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState, metadataSelector, todosListSelector } from '../store';
 import * as FilterActions from '../store/filter/actions';
@@ -9,22 +9,28 @@ import { TodoInputComponent } from '../components/todo-input/todo-input.componen
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { SingleTodoComponent } from '../components/single-todo/single-todo.component';
 import { TodofooterComponent } from '../components/todofooter/todofooter.component';
+import { Observable } from 'rxjs';
+import { TodoState } from '../store/todos/todo.reducer';
+import { Todo } from '../todo';
 
 @Component({
   selector: 'app-todo-comp',
   templateUrl: './todo-comp.component.html',
   styleUrls: [ './todo-comp.component.css' ],
+  providers: [ TodoService ],
   imports: [ TodoInputComponent, AsyncPipe, SingleTodoComponent, CommonModule, TodofooterComponent ],
   standalone: true,
 })
-export class TodoCompComponent {
-  todoList;
-  curFilter;
-  metadata;
+export class TodoCompComponent implements OnInit {
+  public todoList: Observable<Todo[]>;
+  public curFilter: Observable<unknown>;
+  public metadata;
 
   constructor(private store: Store<AppState>,
               private todoService: TodoService){
+  }
 
+  ngOnInit(){
     this.store.dispatch(TodoActions.loadTodos({}));
 
     this.curFilter = this.store
@@ -35,15 +41,12 @@ export class TodoCompComponent {
     this.todoList = this.store
       .pipe(
         select(todosListSelector),
-        // tap((_) => console.log(_))
       );
-    this.store
+
+    this.metadata = this.store
       .pipe(
         select(metadataSelector),
-        // tap((_) => console.log(_))
-      ).subscribe(metadata => this.metadata = metadata);
-
-
+      );
   }
 
   updateCurFilter(filter){

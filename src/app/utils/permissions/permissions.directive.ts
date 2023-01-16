@@ -11,28 +11,26 @@ import { isPermittedState } from '../../store';
   standalone: true,
 })
 export class PermissionsDirective {
-  private _required: string;
-  private _viewRef: EmbeddedViewRef<any> | null = null;
-  private _templateRef: TemplateRef<any> | null = null;
+  private required: string;
+  private viewRef: EmbeddedViewRef<any> | null = null;
 
   @Input()
   set appPermissions(permission: string){
-    this._required = permission;
-    this._viewRef = null;
+    this.required = permission;
+    this.viewRef = null;
     this.init();
   }
 
   constructor(private templateRef: TemplateRef<any>,
               private viewContainerRef: ViewContainerRef,
               private store: Store){
-    this._templateRef = templateRef;
   }
 
   init(){
-    this.store.select(isPermittedState(this._required))
+    this.store.select(isPermittedState(this.required))
       .subscribe((canDo) => {
         if (canDo) {
-          this._viewRef = this.viewContainerRef.createEmbeddedView(this.templateRef);
+          this.viewRef = this.viewContainerRef.createEmbeddedView(this.templateRef);
         } else {
           console.log('PERMISSIONS DIRECTIVE says \n You don\'t have permissions to see it');
         }

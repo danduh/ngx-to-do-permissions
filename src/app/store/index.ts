@@ -18,14 +18,10 @@ export const reducers = {
 };
 
 export const todoStateSelector = createFeatureSelector<TodoState>('todoState');
-
 export const todosListSelector = createSelector(todoStateSelector, (state) => state.todos);
-
 export const metadataSelector = createSelector(todoStateSelector, (state) => state.metadata);
 
-
 export const userPermissionsState = createFeatureSelector<AppState>('userPermissions');
-
 export const isPermittedState = (required: string) => createSelector(
   userPermissionsState,
   (userPerms) => {

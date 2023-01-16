@@ -16,5 +16,4 @@ export class TodoFilterPipe implements PipeTransform {
         return todos;
     }
   }
-
 }
