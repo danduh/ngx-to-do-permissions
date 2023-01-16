@@ -1,23 +1,21 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TodofooterComponent } from './todofooter.component';
+import { CommonModule } from '@angular/common';
+import { CountPipe } from '../../custom-pipes/countPipe';
+import { RouterLink } from '@angular/router';
 
 describe('TodofooterComponent', () => {
   let component: TodofooterComponent;
-  let fixture: ComponentFixture<TodofooterComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodofooterComponent ]
-    })
-    .compileComponents();
+      imports: [
+        CommonModule, CountPipe, RouterLink
+      ],
+    });
+    component = new TodofooterComponent();
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TodofooterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

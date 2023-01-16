@@ -1,23 +1,20 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { TodoInputComponent } from './todo-input.component';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { PermissionsPipe } from '../../utils/permissions/permissions.pipe';
+import { AsyncPipe } from '@angular/common';
+import { TodoFilterPipe } from '../../custom-pipes/filterPipe';
 
 describe('TodoInputComponent', () => {
   let component: TodoInputComponent;
-  let fixture: ComponentFixture<TodoInputComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodoInputComponent ]
-    })
-    .compileComponents();
+      imports: [
+        TodoFilterPipe, PermissionsPipe, AsyncPipe
+      ],
+    });
+    component = new TodoInputComponent();
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TodoInputComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

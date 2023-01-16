@@ -36,10 +36,8 @@ export class TodosEffects {
       this.actions$.pipe(
         ofType(TodoActions.addTodo),
         switchMap((action) => {
-            console.log(action);
             return this.todoService.saveTodo(action.payload)
               .pipe(map(() => {
-                console.log('addTodo$');
                 return TodoActions.loadTodos({});
               }));
           }

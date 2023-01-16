@@ -1,37 +1,39 @@
-import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef} from '@angular/core';
-import {isPermitted} from './permissions.func';
+import { Directive, EmbeddedViewRef, inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { isPermitted } from './permissions.func';
+import { Store } from '@ngrx/store';
+import { isPermittedState } from '../../store';
 
 /**
  * Structural Directive
  */
 @Directive({
-    selector: '[appPermissions]'
+  selector: '[appPermissions]',
+  standalone: true,
 })
 export class PermissionsDirective {
-    private _required: string;
-    private _viewRef: EmbeddedViewRef<any> | null = null;
-    private _templateRef: TemplateRef<any> | null = null;
+  private required: string;
+  private viewRef: EmbeddedViewRef<any> | null = null;
 
-    @Input()
-    set appPermissions(permission: string) {
-        this._required = permission;
-        this._viewRef = null;
-        this.init();
-    }
+  @Input()
+  set appPermissions(permission: string){
+    this.required = permission;
+    this.viewRef = null;
+    this.init();
+  }
 
-    constructor(private templateRef: TemplateRef<any>,
-                private viewContainerRef: ViewContainerRef) {
-        this._templateRef = templateRef;
-    }
+  constructor(private templateRef: TemplateRef<any>,
+              private viewContainerRef: ViewContainerRef,
+              private store: Store){
+  }
 
-    init() {
-        isPermitted(this._required)
-            .subscribe((canDo) => {
-                if (canDo) {
-                    this._viewRef = this.viewContainerRef.createEmbeddedView(this.templateRef);
-                } else {
-                    console.log('PERMISSIONS DIRECTIVE says \n You don\'t have permissions to see it');
-                }
-            });
-    }
+  init(){
+    this.store.select(isPermittedState(this.required))
+      .subscribe((canDo) => {
+        if (canDo) {
+          this.viewRef = this.viewContainerRef.createEmbeddedView(this.templateRef);
+        } else {
+          console.log('PERMISSIONS DIRECTIVE says \n You don\'t have permissions to see it');
+        }
+      });
+  }
 }
