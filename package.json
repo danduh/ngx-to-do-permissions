@@ -54,7 +54,7 @@
     "jest-preset-angular": "12.2.3",
     "jest-sonar": "^0.2.12",
     "jest-sonar-reporter": "^2.0.0",
-    "json-server": "^0.14.2",
+    "json-server": "^0.17.1",
     "ts-jest": "28.0.5",
     "ts-node": "^10.9.1",
     "tslint": "~6.1.0",
