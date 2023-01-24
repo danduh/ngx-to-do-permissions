@@ -80,7 +80,7 @@ export class TodoCompComponent implements OnInit {
     this.store.dispatch(TodoActions.updateTodo({payload: todo}));
   }
 
-  @Permissions('todos_delete')
+  @Permissions('todos_deletemany')
   clearCompleted(): void{
     this.store.dispatch(TodoActions.removeCompletedTodos());
   }

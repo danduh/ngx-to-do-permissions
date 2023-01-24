@@ -1,14 +1,19 @@
 {
   "todos": [
     {
-      "name": "Hi there",
+      "name": "Prepare a cool talk",
       "completed": false,
-      "id": 3
+      "id": 1
     },
     {
-      "name": "Hio there",
+      "name": "Submit CFP",
       "completed": false,
-      "id": 4
+      "id": 2
+    },
+    {
+      "name": "Present Talk on Angular Summit",
+      "completed": true,
+      "id": 3
     }
   ]
 }

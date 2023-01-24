@@ -22,6 +22,7 @@ export const todosListSelector = createSelector(todoStateSelector, (state) => st
 export const metadataSelector = createSelector(todoStateSelector, (state) => state.metadata);
 
 export const userPermissionsState = createFeatureSelector<AppState>('userPermissions');
+
 export const isPermittedState = (required: string) => createSelector(
   userPermissionsState,
   (userPerms) => {

@@ -32,7 +32,8 @@ bootstrapApplication(AppComponent, {
         {path: '', redirectTo: 'list', pathMatch: 'full'},
         {path: 'list', component: TodoCompComponent, pathMatch: 'full'},
         {
-          path: 'stat', component: TodoStatisticsComponent, canActivate: [
+          path: 'stat', component: TodoStatisticsComponent,
+          canActivate: [
             PermissionsGuardService
           ],
           data: {
