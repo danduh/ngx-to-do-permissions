@@ -2,10 +2,13 @@ const initialState = {
   todos: {
     read: '*',
     update: '*',
+    delete: '*',
+    deletemany: '*',
     create: '*',
-    delete: '*'
   },
-  stats: '*'
+  stats: {
+    read: '*',
+  }
 };
 
 

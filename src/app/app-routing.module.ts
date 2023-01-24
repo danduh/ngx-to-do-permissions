@@ -9,10 +9,6 @@ export const routes: Routes = [
         redirectTo: '/list',
         pathMatch: 'full'
     },
-    // {
-    //     path: 'list',
-    //     loadChildren: () => import('./todo-comp/todo-comp.module').then(m => m.TodoCompModule)
-    // },
     {
         path: 'stat',
         component: TodoStatisticsComponent,
@@ -20,7 +16,7 @@ export const routes: Routes = [
             PermissionsGuardService
         ],
         data: {
-            permission: 'stats_read'
+            permission: 'stats'
         },
     }
 ];
